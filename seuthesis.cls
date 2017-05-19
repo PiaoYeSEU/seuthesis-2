@@ -43,7 +43,7 @@
 }
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 \ProcessOptions
-\LoadClass[a4paper,captions=tableheading]{scrbook}
+\LoadClass[a4paper,10.5pt,tablecaptionabove]{scrbook}
 \let\todayeng\today
 
 % my change
@@ -104,7 +104,7 @@
   }
 \AtEndDocument{\backcover}
 
-\RequirePackage[top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\RequirePackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
 \RequirePackage[pagestyles, rm]{titlesec}
 \RequirePackage{titletoc} % 设置目录
 \hypersetup{bookmarksnumbered=true}%书签中章节编号
@@ -172,22 +172,25 @@ BoldItalicFont=timesbi.ttf
   urlcolor=magenta
 }
 \newpagestyle{seustyle}{
-  \sethead[][{\song{}\xiaowuhao{}东南大学2017届本科生毕业设计（论文）}][\song{}\xiaowuhao{}第\thepage 页] % 偶数页
-  {}{{\song{}\xiaowuhao{}东南大学2017届本科生毕业设计（论文）}}{\song{}\xiaowuhao{}第\thepage 页} % 奇数页
-  \setfoot{}{}{}
+  \sethead[][{\song{}\xiaowuhao{}东南大学\@degree{}学位论文}][] % 偶数页
+  {}{{\song{}\xiaowuhao{}\chaptertitlename\quad\chaptertitle}}{} % 奇数页
+  \setfoot{}{\thepage}{}
   \headrule
 }
 \newpagestyle{seufrontstyle}{
-  \pagestyle{seunolabelstyle}
+  \sethead[][{\song{}\xiaowuhao{}东南大学\@degree{}学位论文}][]
+  {}{{\song{}\xiaowuhao{}东南大学\@degree{}学位论文}}{}
+  \setfoot{}{\thepage}{}
+  \headrule
 }
 \newpagestyle{seunolabelstyle}{
-  \sethead[][{\song{}\xiaowuhao{}东南大学2017届本科生毕业设计（论文）}][]
-  {}{{\song{}\xiaowuhao{}东南大学2017届本科生毕业设计（论文）}}{}
-  \setfoot{}{}{}
+  \sethead[][{\song{}\xiaowuhao{}东南大学\@degree{}学位论文}][]
+  {}{{\song{}\xiaowuhao{}\chaptertitle}}{}
+  \setfoot{}{\thepage}{}
   \headrule
 }
 \renewpagestyle{plain}{
-  \pagestyle{seunolabelstyle}
+  \setfoot{}{\thepage}{}
 }
 \renewcommand{\author}[2]{
   \def\@author{#1}
@@ -489,7 +492,8 @@ BoldItalicFont=timesbi.ttf
     \linespacing{1.0}
     \begin{center}
       \vspace*{20pt}
-      \includegraphics[height=2cm]{figures/seu-text-logo} \\
+      \includegraphics[height=2cm]{figures/seu-badge-logo}
+      \quad \includegraphics[height=2cm]{figures/seu-text-logo} \\
       \vspace*{60pt}
       \yihao\hei \bachelortitle \\
       \vspace*{60pt}
@@ -660,10 +664,8 @@ BoldItalicFont=timesbi.ttf
   {\linespacing{1.15}%
   \song\xiaosihao%
   \phantomsection
-  \pagestyle{seunolabelstyle}
   \tableofcontents@orig \par
-  \clearpage} %目录部分字体可采用小四号宋体。
-  \renewpagestyle{plain}{\pagestyle{seustyle}}
+  \pagestyle{seunolabelstyle}\clearpage} %目录部分字体可采用小四号宋体。
 }
 \newenvironment{terminology}[1][\@terminologytitle]
 {
@@ -698,7 +700,7 @@ BoldItalicFont=timesbi.ttf
 \let\orig@bibliography=\bibliography
 \renewcommand{\bibliography}[1]{
   \orig@bibliography{#1}
-  \pagestyle{seustyle}\clearpage % 使参考文献使用 seunolabel 页面样式
+  \pagestyle{seunolabelstyle}\clearpage % 使参考文献使用 seunolabel 页面样式
   \pagestyle{seufrontstyle}} % 恢复原有样式给后续部分
 \newenvironment{Acknowledgement}[1][\@acknowledgementtitle]
 {%
